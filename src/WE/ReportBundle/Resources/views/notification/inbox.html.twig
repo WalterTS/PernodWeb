@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Notificaciones</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                            <li><a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="row">
+                            <div class="col-sm-3 mail_list_column">
+                                {% for msg in entities %}
+                                    <a href="{{path('inbox', {message_id: msg.id})}}" class="ntf-side">
+                                        <div class="mail_list">
+                                            <div class="left">
+                                                {% if msg.status != true %}
+                                                    <i class="fa fa-circle"></i>
+                                                {% endif %}
+                                            </div>
+                                            <div class="right">
+                                                <h3>{{msg.sender}} <small>{{ msg.fecha|localizeddate('short', 'none', app.request.locale) }}</small></h3>
+                                                <p>{{msg.titulo}}</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                {% endfor %}
+                            </div>
+                            <!-- /MAIL LIST -->
+
+                            {# INBOX CONTENT #}
+                            <div id="inbox-container" class="inbox-gc">
+                                {% include 'ReportBundle:sections:_inbox_content.html.twig'%}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /page content -->
+    </div>
+    <div class="loader-div hidden">
+        <div class="spinner">
+          <div class="rect1"></div>
+          <div class="rect2"></div>
+          <div class="rect3"></div>
+          <div class="rect4"></div>
+          <div class="rect5"></div>
+        </div>
+    </div>
+{% endblock %}

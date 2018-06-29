@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12">
+            {% if is_granted('ROLE_USER_GERENTE') %}
+                <a href="{{ path('proyecto_new') }}" class="btn btn-nav btn-block m-xs-y-2 m-sm-y-1">CREAR PLAN</a>
+                <a href="{{ path('proyecto_index') }}" class="btn btn-nav btn-block m-xs-y-2 m-sm-y-1">TUS PLANES</a>
+            {% endif %}
+
+            {% if is_granted('ROLE_USER_SUPERVISOR') or is_granted('ROLE_USER_CUENTA') %}
+                <a href="{{ path('activacion_index') }}" class="btn btn-nav btn-block m-xs-y-2 m-sm-y-1">TUS PROYECTOS</a>
+            {% endif %}
+            
+            {% if is_granted('ROLE_USER_KAM') or is_granted('ROLE_USER_EJECUTIVO') %}
+                <a href="{{ path('activacion_new') }}" class="btn btn-nav btn-block m-xs-y-2 m-sm-y-1">CREAR PROYECTO</a>
+            {% endif %}
+
+            
+
+            <a href="{{ path('calendar') }}" class="btn btn-nav btn-block m-xs-y-2 m-sm-y-1">CALENDARIO</a>
+            {% if not(is_granted('ROLE_USER_SUPERVISOR')) %}
+                <a href="{{path('reporte_index')}}" class="btn btn-nav btn-block m-xs-y-2 m-sm-y-1">REPORTE</a>
+            {% endif %}
+
+            {% if is_granted('ROLE_USER_GERENTE') %}
+                <a href="{{ path ('administracion_index') }}" class ="btn btn-nav btn-block m-xs-y-2 m-sm-y-1">ADMINISTRA</a>
+            {% endif %}
+
+            {% if is_granted('ROLE_USER_CUENTA') %}
+                <a href="{{ path('agencia_usuario_index') }}" class="btn btn-nav btn-block m-xs-y-2 m-sm-y-1">USUARIOS</a>
+            {% endif %}
+
+
+        </div>
+    </div>
+{% endblock %}

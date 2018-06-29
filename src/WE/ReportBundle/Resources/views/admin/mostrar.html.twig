@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="bg-primary text-center p-1 m-xs-b-1">
+        <h2>Proyecto:{# {{proyecto.nombre}}#}</h2>
+    </div>
+    <div class='table-wrap hidden-xs'>
+        <table class="table-striped table-bordered admin-list">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Fecha inicio</th>
+                    <th>Fecha fin</th>
+                    <th>Marca</th>
+                    <th>Regiones</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        {#{{proyecto.nombre}}#}
+                    </td>
+                    <td>
+                        {#{% if proyecto.fechainicio %}{{ proyecto.fechainicio|localizeddate('medium', 'none', app.request.locale) }}{% endif %}#}
+                    </td>
+                    <td>
+                       {# {% if proyecto.fechafin %}{{ proyecto.fechafin|localizeddate('medium', 'none', app.request.locale) }}{% endif %}#}
+                    </td>
+                    <td>
+                       {# {{proyecto.marca.nombre}}#}
+                    </td>
+                    
+                    
+                    <td>{#{{proyecto.getRegionesString}}#}</td>
+                    
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="table-striped table-bordered admin-list">
+            <tr>
+                <th>Kpi Tipo</th>
+                <td>{#{{proyecto.kpitipo}}#}</td>
+            </tr>
+            <tr>
+                <th>Kpi Total</th>
+                <td>{#{{proyecto.kpitotal}}#}</td>
+            </tr>
+            <tr>
+                <th>Maximo plaza</th>
+                <td>{#{{proyecto.maximoplaza}}#}</td>
+            </tr>
+            <tr>
+                <th>Tipo de cancelación</th>
+                <td>{#{{proyecto.tiempocancelacion}}#}</td>
+            </tr>
+            <tr>
+                <th>Agencia</th>
+                <td>{#{{proyecto.agencia.nombre}}#}</td>
+            </tr>
+            <tr>
+                <th>Activaciones Tipo</th>
+                <td>{#{{proyecto.activacionestipo[0].nombre}}#}</td>
+            </tr>
+            <tr>
+                <th>Centros de consumo</th>
+            <td>{#{{proyecto.getCdcsString}}#}</td>
+            </tr>
+
+            <tr>
+                <th>Total de Activaciones</th>
+            <td>{#{{proyecto.totalactivaciones}}#}</td>
+            </tr>
+
+            <tr>
+                <th>Plazas</th>
+            <td>{#{{proyecto.getPlazasString}}#}</td>
+            </tr>
+
+            <tr>
+                <th>Descripción</th>
+            <td>{#{{proyecto.descripcion}}#}</td>
+            </tr>
+
+        </table>
+
+        <div class="col-xs-12">
+            <a href="{{ path('usuario_index') }}">
+                <button class="btn">Regresar a listado</button>
+            </a>
+            <a href="{{ path('edit_index') }}">
+                <button class="btn bg-ocean">Editar</button>
+            </a>
+        </div>
+    </div>
+{% endblock %}

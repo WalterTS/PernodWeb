@@ -1,0 +1,116 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {# AREA BREADCUM/BOTÓN #}
+    <div class="col-xs-12 px-0 breadcrumb-c">
+        <span>Tus Proyectos / <strong>Activaciones</strong></span>
+        <h1>Activaciones</h1>
+    </div>
+    <div class="col-xs-12 px-0 new-btn">
+        {% if is_granted('ROLE_USER_KAM') or is_granted('ROLE_USER_EJECUTIVO') %}
+            <a href="{{ path('activacion_new') }}" class="filter-t-add">
+                Crear nuevo<span class="glyphicon glyphicon-plus"></span>
+            </a>
+        {% else %}
+            <a href="#" class="filter-t-add">
+               
+            </a>
+        {% endif %}
+    </div>
+    {# ---- AREA BREADCUM/BOTÓN #}
+    {% include 'ReportBundle:admin:layout/filter-top.html.twig' with {'list_filter':'y', 'searchBy':'activacion'} %}
+    <div class='table-wrap hidden-xs'>
+        <table class="table table-striped table-bordered dt-responsive nowrap admin-list custom-table-list">
+            <thead>
+                <tr>
+                    <th>{{knp_pagination_sortable(pagination,'Fecha','Activacion.fecha')}}</th>
+                    <th>{{knp_pagination_sortable(pagination,'Centro de Consumo','c.nombre')}}</th>
+                    <th>Plaza</th>
+                    <th>{{knp_pagination_sortable(pagination,'Status','s.nombre')}}</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if pagination|length %}
+                    {% for activacion in pagination %}
+                        <tr>
+                            <td>{% if activacion.fecha %}{{ activacion.fecha|localizeddate('medium', 'medium', app.request.locale) }}{% endif %}</td>
+                            <td>{{activacion.cdc}}</td>
+                            <td>{{activacion.cdc.plaza}}</td>
+                            <td>{{activacion.status.nombre}}</td>
+                            <td>
+                                {% if is_granted('ROLE_USER_SUPERVISOR') and not(is_granted('ROLE_USER_PRODUCTOR')) %}
+                                    <a href="{{ path('capture_app', { 'app_id': activacion.id }) }}">
+                                        <button class="btn bg-ocean">Mostrar</button>
+                                    </a>
+                                {% else %}
+                                    <a href="{{ path('activacion_show', { 'id': activacion.id }) }}">
+                                        <button class="btn bg-ocean">Mostrar</button>
+                                    </a>
+                                {% endif %}
+
+                                {% if is_granted('ROLE_USER_PRODUCTOR') and activacion.hasSupervisors() %}
+                                    <a href="{{ path('activacion_supervisors', { 'id': activacion.id }) }}">
+                                        <button class="btn bg-ocean">Asignar supervisor</button>
+                                    </a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan='5'>
+                            <p>NO TIENES ACTIVACIONES ASIGNADAS</p>
+                        </td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+
+    <div class='visible-xs-block projects-wrap'>
+        <div class='col-xs-12'>
+            {% if pagination|length %}
+                {% for activacion in pagination %}
+                    <div class='row project-row m-xs-b-1'>
+                        <div class='col-xs-2 text-center'>
+                            {% if activacion.fecha %}<h2>{{ activacion.fecha|localizeddate('medium', 'medium', app.request.locale) }}</h2>{% endif %}
+                        </div>
+                        <div class='col-xs-4'>
+                            <div class="image-wrap">
+                                <img src="{{ vich_uploader_asset(activacion.cdc, 'imageFile') }}" alt="{{activacion.cdc.image}}" class="img-responsive"/>
+                            </div>
+                        </div>
+                        <div class='col-xs-6'>
+                            <p>
+                                {{activacion.cdc}}<br>
+                                {{activacion.cdc.plaza}}<br>
+                                {{activacion.status.nombre}}
+                                <br>
+                                {% if is_granted('ROLE_USER_SUPERVISOR') and not(is_granted('ROLE_USER_PRODUCTOR')) %}
+                                    <a href="{{ path('capture_app', { 'app_id': activacion.id }) }}">
+                                        Mostrar
+                                    </a>
+                                {% else %}
+                                    <a href="{{ path('activacion_show', { 'id': activacion.id }) }}">
+                                        Mostrar
+                                    </a>
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>NO TIENES ACTIVACIONES ASIGNADAS</p>
+            {% endif %}
+
+        </div>
+    </div>
+
+
+
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+{% endblock %}

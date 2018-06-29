@@ -1,0 +1,10 @@
+  <h1>Asigna tus supervisores</h1>
+    {% form_theme form
+        'form-themes/activacion-ejecutivo.html.twig'
+        'jquery.collection.html.twig'
+    %}
+    {{ form_start(form,{'attr':{'action':path('activacion_supervisors',{id:activacion.id}),'class':'form-horizontal form-label-left'} }) }}
+    {{form_widget(form)}}
+    {% include 'activacion/_buttons.html.twig' %}
+    {{ form_errors(form)}}
+    {{ form_end(form) }}

@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {# AREA BREADCUM/BOTÓN #}
+    <div class="col-xs-12 px-0 breadcrumb-c">
+        <span>Tus Planes / <strong>Planes</strong></span>
+        <h1>Planes</h1>
+    </div>
+    <div class="col-xs-12 px-0 new-btn">
+        <a href="{{ path('proyecto_new') }}" class="filter-t-add">
+            Crear nuevo<span class="glyphicon glyphicon-plus"></span>
+        </a>
+    </div>
+    {# ---- AREA BREADCUM/BOTÓN #}
+    {% include 'ReportBundle:admin:layout/filter-top.html.twig' with {'list_filter':'y', 'searchBy':'proyecto'} %}
+    <div class='table-wrap hidden-xs'>
+        <table class="table table-striped table-bordered dt-responsive nowrap admin-list custom-table-list">
+            <thead>
+                <tr>
+                    <th>{{knp_pagination_sortable(pagination,'Nombre','Proyecto.nombre')}}</th>
+                    <th>{{knp_pagination_sortable(pagination,'Fecha Inicio','Proyecto.fecha_inicio')}}</th>
+                    <th>{{knp_pagination_sortable(pagination,'Fecha Fin','Proyecto.fecha_fin')}}</th>
+                    <th>{{knp_pagination_sortable(pagination,'Marca','m.nombre')}}</th>
+                    <th>Proyectos ejecutados</th>
+                    <th>Proyectos faltantes</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if pagination|length %}
+                    {% for proyecto in pagination %}
+                        <tr>
+                            <td>{{proyecto.nombre}} </td>
+                            <td>
+                                {% if proyecto.fechainicio %}{{ proyecto.fechainicio|localizeddate('medium', 'medium', app.request.locale) }}{% endif %}
+                            </td>
+                            <td>
+                                {% if proyecto.fechafin %}{{ proyecto.fechafin|localizeddate('medium', 'medium', app.request.locale) }}{% endif %}
+                            </td>
+                            <td>
+                                {{proyecto.marca.nombre}}
+                            </td>
+                            <td>
+                                {{proyecto.getActivacionesEjecutadas|length}}
+                            </td>
+                            <td>
+                                {{proyecto.getActivacionesFaltantes}}
+                            </td>
+                            <td>
+                                <a href="{{ path('proyecto_edit', { 'id': proyecto.id }) }}">
+                                    <button class="btn bg-ocean">Editar</button>
+                                </a>
+                                <a href="{{ path('proyecto_show', { 'id': proyecto.id }) }}">
+                                    <button class="btn bg-ocean">Mostrar</button>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan='60'>
+                            <p>NO TIENES PLANES ASIGNADOS</p>
+                        </td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+{% endblock %}

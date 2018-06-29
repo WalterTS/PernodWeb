@@ -1,0 +1,24 @@
+<div class="hidden-xs">
+    <img src="{{ vich_uploader_asset(activacion.cdc, 'imageFile') }}" alt="{{activacion.cdc.image}}" class="hidden-xs" />
+    <h3>{{activacion.proyecto.marca.nombre}}: {{activacion.cdc.nombre}} | {{activacion.fecha|localizeddate('medium', 'medium', app.request.locale) }}</h3>
+    <h5>@{{activacion.cdc.plaza.nombre}}</h5>
+</div>
+<div class="visible-xs-block">
+    <h3>{{activacion.proyecto.marca.nombre}}: {{activacion.cdc.nombre}}</h3>
+    <div class="image-wrap">
+        <img src="{{ vich_uploader_asset(activacion.cdc, 'imageFile') }}" alt="{{activacion.cdc.image}}" class="img-responsive"/>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <h3>{{activacion.cdc.plaza.nombre}}</h3>
+        </div>
+        <div class="col-xs-6 text-right">
+            <h3>{{activacion.fecha|localizeddate('medium', 'medium', app.request.locale) }}</h3>
+        </div>
+    </div>
+</div>
+<ul class="nav navbar-right panel_toolbox hidden-xs">
+    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+    </li>
+</ul>
+<div class="clearfix"></div>

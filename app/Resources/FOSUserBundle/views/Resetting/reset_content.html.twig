@@ -1,0 +1,38 @@
+{% trans_default_domain 'FOSUserBundle' %}
+<div>
+    <a class="hiddenanchor" id="signin"></a>
+    <div class="login_wrapper">
+        <div class="animate form login_form">
+            <section class="login_content">
+                {{ form_start(form, { 'action': path('fos_user_resetting_reset', {'token': token}), 'attr': { 'class': 'fos_user_resetting_reset' } }) }}
+                <h1>Contraseña</h1>
+                <div>
+                    {{ form_widget(form.plainPassword.first,{'attr':{'class':'form-control b-r-0','placeholder':'Ingresa contraseña'} }) }}
+                    {{ form_widget(form.plainPassword.second,{'attr':{'class':'form-control b-r-0','placeholder':'Confirma contraseña'} }) }}
+                    {{ form_widget(form) }}
+                </div>
+                <div>
+                    <input class="btn bg-dark-ocean b-r-0 w50 submit pull-right" type="submit" value="{{ 'resetting.reset.submit'|trans }}" />
+                    </a>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="separator">
+                    <div class="clearfix"></div>
+                    <div class="img-wrap">
+                        {% image '@ReportBundle/Resources/public/images/login-img.png' %}
+                        <img src="{{ asset_url }}" alt="" class="img-responsive my-3"/>
+                        {% endimage %}
+                    </div>
+                    <div class="img-wrap">
+                        {% image '@ReportBundle/Resources/public/images/footer-logo.png' %}
+                        <img src="{{ asset_url }}" alt="" class="img-responsive mx-auto"/>
+                        {% endimage %}
+                    </div>
+                </div>
+                {{ form_end(form) }}
+            </section>
+        </div>
+    </div>
+</div>

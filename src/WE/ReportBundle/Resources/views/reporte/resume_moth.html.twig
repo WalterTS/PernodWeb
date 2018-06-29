@@ -1,0 +1,52 @@
+
+<div class="col-xs-12 col-sm-6">
+    <h3>Activacion / Mes</h3>
+    <table class="table table-bordered">
+        <tr>
+            <td>Mes</td>
+            <td>Objetivos</td>
+            <td>Activaciones</td>
+            <td>Ventas</td>
+            <td>Venta promedio</td>
+        </tr>
+        {% for key,data in data_month %}
+            <tr>
+                <td>{{key|date('M')}}</td>
+                <td>{{data.objetivos|round}}</td>
+                <td>{{data.activaciones|round}}</td>
+                <td>{{data.ventas|round}}</td>
+                <td>{{(data.ventas/data.activaciones)|round}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<div class="col-xs-12 col-sm-6">
+    <h3>Activacion / Mes</h3>
+    <table class="table table-bordered">
+        <tr>
+            <td>Mes</td>
+            {% for plaza in data_month_plaza.plazas %}
+                <td>{{plaza}}</td>
+            {% endfor %}
+            <td>Total</td>
+        </tr>
+        {% for key,data in data_month_plaza.data %}
+            {% set total_mes = 0 %}
+            <tr>
+                <td>{{key|date('M')}}</td>
+                {% for plaza in data_month_plaza.plazas %}
+                    <td>
+                        {% if data[plaza] is defined %}
+                            {% set total_mes= total_mes + data[plaza].activaciones %}
+                            {{data[plaza].activaciones}}
+                        {%else %}
+                            0
+                        {% endif %}
+                    </td>
+                {% endfor %}
+                <td>{{total_mes}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>

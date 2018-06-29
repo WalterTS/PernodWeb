@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title page-header bg-dark-ocean">
+                        <h4 class="ml-2">EDITAR PROYECTO</h4>
+                        <ul class="nav navbar-right panel_toolbox hidden-xs">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="clearfix">
+                            <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+                             {#  {{ form_start(edit_form,{'attr':{'class':'form-expanded-selects'} }) }}
+                               {% form_theme edit_form 'jquery.collection.html.twig' %}#}
+                                <div class='hidden'>
+                                 {#  {{ form_row(edit_form._token) }}#}
+                                </div>
+                               {# {% for field in edit_form.children %}
+                                    {% if not(field.rendered) %}#}
+                                        <div class="form-group capture-form">
+                                            <div class="control-label m-xs-t-1">
+                                              {# {{ form_label(field) }}#}
+                                            </div>
+                                            <div class="m-xs-b-1">
+                                               {#{{ form_widget(field) }}
+                                                {% if field.vars.errors is defined %}
+                                                    {{form_errors(field)}}
+                                                {% endif %}#}
+                                            </div>
+                                        </div>
+                             {#       {% endif %}
+                                {% endfor %}
+                                {% include 'proyecto/_buttons.html.twig' %}
+                                {{ form_end(edit_form) }}#}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{parent()}}
+    <script src="{{ asset('js/jquery.collection.js') }}"></script>
+
+    <script type="text/javascript">
+        $('.my-selector').collection();
+
+        {#var $proyect = $('#we_reportbundle_proyecto_regiones');
+
+        $proyect.change(function () {
+            var $form = $(this).closest('form');
+            var data = {};
+            data[$proyect.attr('name')] = $proyect.val();
+            $.ajax({
+                url: $form.attr('action'),
+                type: $form.attr('method'),
+                data: data,
+                success: function (html) {
+                    $('#we_reportbundle_proyecto_plazas').replaceWith(
+                            $(html).find('#we_reportbundle_proyecto_plazas')
+                            );
+
+                    var $plazas = $('#we_reportbundle_proyecto_plazas');
+
+                    $plazas.change(function () {
+                        var $form = $(this).closest('form');
+                        var data = {};
+                        data[$proyect.attr('name')] = $proyect.val();
+                        data[$plazas.attr('name')] = $plazas.val();
+                        $.ajax({
+                            url: $form.attr('action'),
+                            type: $form.attr('method'),
+                            data: data,
+                            success: function (html) {
+                                $('#we_reportbundle_proyecto_cdcs').replaceWith(
+                                        $(html).find('#we_reportbundle_proyecto_cdcs')
+                                        );
+                            }
+                        });
+                    });
+                }
+            });
+        });#}
+
+
+
+
+    </script>
+{% endblock %}

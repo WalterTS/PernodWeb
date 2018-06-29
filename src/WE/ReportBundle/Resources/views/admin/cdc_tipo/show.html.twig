@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="bg-primary text-center p-1 m-xs-b-1">
+        <h2>Tipo de Centro de Consumo: {{cdctipo.nombre}}</h2>
+    </div>
+    <div class='table-wrap hidden-xs'>
+        <table class="table-striped table-bordered admin-list">
+            <thead>
+                <tr>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+
+ 
+                </tr>
+            </tbody>
+        </table>
+
+
+        <div class="col-xs-12">
+            <a href="{{ path('cdctipo_index') }}">
+                <button class="btn">Regresar a listado</button>
+            </a>
+            <a href="{{ path('cdctipo_edit', { 'id': cdctipo.id }) }}">
+                <button class="btn bg-ocean">Editar</button>
+            </a>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% if entities|length %}
+    {% for entity in entities %}
+        {% if loop.index < 5 %}
+            <li>
+                <a href="
+                   {% if position == 'body-top' and entity.path is defined %}
+                       {{path('inbox_redirect',{id:entity.id})}}
+                   {% else%}
+                       {{path('inbox',{message_id:entity.id})}}
+                   {% endif %}
+                   ">
+                    <span class="image hidden-xs">
+                        {% image '@ReportBundle/Resources/public/images/ico-prm.png' %}
+                        <img src="{{ asset_url }}" alt="user"/>
+                        {% endimage %}
+                    </span>
+                    <span>
+                        <span class="user">{{entity.user_from is defined ? entity.user_from.username:'PRM Pernod'}}</span>
+                        <span class="time">{{ entity.fecha|localizeddate('short', 'none', app.request.locale) }}</span>
+                    </span>
+                    <span class="message">
+                        {{entity.titulo}}
+                    </span>
+                </a>
+            </li>
+        {% endif %}
+    {% endfor %}
+{% else %}
+    <li><p class='text-center'>No tienes notificaciones sin leer</p></li>
+{% endif %}

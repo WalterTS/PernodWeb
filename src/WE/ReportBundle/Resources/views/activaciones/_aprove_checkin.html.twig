@@ -1,0 +1,15 @@
+{% if activacion.status.id == 9 and activacion.isValidUser(app.user,'Productor') %}
+    <div class="bg-primary text-center btn-approve-wrap">
+        <a href="{{path('activaciones_operate',{'status_id':12,'activacion_id':activacion.id})}}" class="text-white"><i class="fa fa-check-circle-o"></i></a>
+        <h2>Aprobar</h2>
+        <a href="{{path('activaciones_operate',{'status_id':6,'activacion_id':activacion.id})}}" class=""><i class="fa fa-times-circle-o"></i></a>
+    </div>
+{% endif %}
+
+{% if activacion.status.id == 12 and activacion.isValidUser(app.user,'Ejecutivo de cuenta') %}
+    <div class="bg-primary text-center btn-approve-wrap">
+        <a href="{{path('activaciones_operate',{'status_id':7,'activacion_id':activacion.id})}}" class="text-white"><i class="fa fa-check-circle-o"></i></a>
+        <h2>Aprobar</h2>
+        <a href="{{path('activaciones_operate',{'status_id':6,'activacion_id':activacion.id})}}" class=""><i class="fa fa-times-circle-o"></i></a>
+    </div>
+{% endif %}

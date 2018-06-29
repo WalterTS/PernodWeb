@@ -1,0 +1,15 @@
+<div class="clearfix">
+    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+        {% form_theme form_activacion
+    'form-themes/upload-images.html.twig'
+    'jquery.collection.html.twig'
+        %}
+        {{ form_start(form_activacion,{'attr':{'action':path('update_app',{app_id:activacion.id}),'class':''} }) }}
+        {{form_widget(form_activacion)}}
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Check In</button>
+        </div>
+        {{ form_errors(form_activacion)}}
+        {{ form_end(form_activacion) }}
+    </div>
+</div>

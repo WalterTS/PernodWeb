@@ -1,0 +1,47 @@
+{% if not(is_granted('ROLE_USER_GERENTE')) %}
+    <div class="bg-primary p-2 m-xs-b-1 m-xs-t-1 m-sm-t-2">
+        <h2>Comentarios</h2>
+    </div>
+
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+            <p>Se muestran los comentarios generados por los diferentes participantes de la activación.</p>
+            <p>Puedes agregar comentarios en caso de que sea requerido.</p>
+            {% if activacion.comentarios|length %}
+                <ul class="list-unstyled comments-wrap m-xs-y-2">
+                    {% for comentario in activacion.getRawComentarios %}
+                        <li>
+                            <span class="image-wrap user-profile m-xs-b-1">
+                                <img src="{{ vich_uploader_asset(comentario.userFrom, 'imageFile') }}" alt="{{comentario.userFrom.image}}"  />
+                            </span>
+                            <span>{{comentario.userFrom.username}} {{ comentario.fecha|localizeddate('short', 'none', app.request.locale) }}</span>
+                            <p>{{comentario.comentario}}</p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <div class="form-wrap">
+                {{ form_start(form,{'attr':{action:path('inbox_post')}}) }}
+                {% form_theme form 'jquery.collection.html.twig' %}
+                <div class="form-group capture-form m-xs-b-1">
+                    <div class="control-label">
+                        {{ form_label(form.comentario,'Añadir comentario') }}
+                    </div>
+                    <div class="">
+                        {{ form_widget(form.comentario,{'attr':{'class':'form-control','rows':'4'} }) }}
+                        {{form_errors(form.comentario)}}
+                    </div>
+                </div>
+                <div class='hidden'>
+                    {{form_widget(form.user_from,{data: app.user})}}
+                    {{form_widget(form.activacion,{data: activacion})}}
+                </div>
+                <div class="form-group clearfix text-center">
+                    <button type="submit" class="btn btn-primary">GUARDAR</button>
+                </div>
+                {{ form_end(form) }}
+
+            </div>
+        </div>
+    </div>
+{% endif %}

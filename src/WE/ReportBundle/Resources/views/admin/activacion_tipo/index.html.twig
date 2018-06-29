@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {# AREA BREADCUM/BOTÓN #}
+    <div class="col-xs-12 px-0 breadcrumb-c">
+        <span>Administración / <strong>Tipo de Activación</strong></span>
+        <h1>Tipo de Activación</h1>
+    </div>
+    <div class="col-xs-12 px-0 new-btn">
+        <a href="{{ path('activaciontipo_new') }}" class="filter-t-add">
+            Crear nuevo<span class="glyphicon glyphicon-plus"></span>
+        </a>
+    </div>
+    {# ---- AREA BREADCUM/BOTÓN #}
+    {% include 'ReportBundle:admin:layout/filter-top.html.twig' with {'list_filter':'y', 'searchBy':'activaciontipo'} %}
+    <div class='table-wrap hidden-xs'>
+        <table class="table table-striped table-bordered dt-responsive nowrap admin-list custom-table-list">
+            <thead>
+                <tr>
+
+                    <th>{{knp_pagination_sortable(pagination,'Nombre','ActivacionTipo.nombre')}}</th>
+                    <th>{{knp_pagination_sortable(pagination,'Degustación Total','ActivacionTipo.degustacion_total')}}</th>
+                    <th>{{knp_pagination_sortable(pagination,'Giveaway Material','ActivacionTipo.giveaway_material')}}</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if pagination|length %}
+                    {% for activaciontipo in pagination %}
+                        <tr>
+                            <td>{{activaciontipo.nombre}}</td>
+                            <td>{{activaciontipo.degustaciontotal}}</td>
+                            <td>{{activaciontipo.giveaway}}</td>
+                            <td><a href="{{ path('activaciontipo_edit',{'id':activaciontipo.id}) }}">
+                                    <button class="btn bg-ocean">Editar</button>
+                                </a> 
+                                <a href="{{ path('activaciontipo_show',{'id':activaciontipo.id}) }}">
+                                    <button class="btn bg-ocean">Mostrar</button>
+                                </a></td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan='6'>
+                            <p>NO HAY USUARIOS</p>
+                        </td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+{% endblock %}

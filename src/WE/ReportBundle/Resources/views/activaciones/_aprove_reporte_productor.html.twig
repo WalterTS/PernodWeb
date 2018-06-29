@@ -1,0 +1,8 @@
+{% if activacion.status.id == 4 and activacion.isValidUser(app.user,'Productor') %}
+    <p>Debes de aprobar el reporte que cargo tu supervisor</p>
+    <div class="bg-primary text-center btn-approve-wrap">
+        <a href="{{path('activaciones_operate',{'status_id':10,'activacion_id':activacion.id})}}" class="text-white"><i class="fa fa-check-circle-o"></i></a>
+        <h2>Aprobar</h2>
+        <a href="{{path('activaciones_operate',{'status_id':13,'activacion_id':activacion.id})}}" class=""><i class="fa fa-times-circle-o"></i></a>
+    </div>
+{% endif %}

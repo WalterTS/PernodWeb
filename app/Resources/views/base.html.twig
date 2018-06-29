@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <title>{% block title %}PRM{% endblock %}</title>
+        {% block stylesheets %}
+            {% stylesheets
+                'https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css'
+                'bundles/report/vendors/bootstrap/dist/css/bootstrap.min.css'
+                'bundles/report/vendors/font-awesome/css/font-awesome.min.css'
+                'bundles/report/vendors/nprogress/nprogress.css'
+                'bundles/report/vendors/animate.css/animate.min.css'
+                'bundles/report/build/css/custom.min.css'
+                'bundles/report/vendors/fullcalendar/dist/fullcalendar.min.css'
+                'bundles/report/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css'
+                'bundles/report/bxslider/jquery.bxslider.min.css'
+                'bundles/report/fancybox/jquery.fancybox.min.css'
+                'bundles/report/css/zetter.css'
+                'bundles/report/css/style.css'
+                'bundles/report/css/mediaqueries.css'
+                'bundles/report/css/select2.css'
+                filter='cssrewrite'
+            %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
+            {% stylesheets
+                'bundles/report/vendors/fullcalendar/dist/fullcalendar.print.css'
+                filter='cssrewrite'
+            %}
+            <link rel="stylesheet" href="{{ asset_url }}" media="print"/>
+            {% endstylesheets %}
+        {% endblock %}
+        <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/manifest.json">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+        <meta name="theme-color" content="#ffffff">
+    </head>
+    <body class="nav-sm">
+        <div class="container body">
+            <div class="main_container">
+                {% include 'ReportBundle:Default:side-menu.html.twig'%}
+                {% include 'ReportBundle:Default:header.html.twig'%}
+                <div class="right_col" role="main">
+
+                    <div class="notifications-wrap visible-xs-block">
+                        <ul class="list-unstyled">
+                            {{ render(controller('WE\\ReportBundle\\Controller\\NotificationController::unreadNotificationsAction', { 'position': 'body-top' }  )) }}
+                        </ul>
+                    </div>
+
+                    <script type="text/javascript">
+                        var data_calendar = null;
+                    </script>
+
+                    {% block body %}
+                    {% endblock %}
+                    <div class="hidden">
+                    {{ render(controller('WE\\ReportBundle\\Controller\\Agencia\\ComentarioController::notificationAction' )) }}
+                    </div>
+                    <a href="{{path('agencia_get_comentario')}}" class="hidden" id="verify_rate">verify_rate</a>
+                </div>
+                {% include 'ReportBundle:Default:footer.html.twig'%}
+            </div>
+        </div>
+
+        {% block javascripts %}
+            {% javascripts
+                '@ReportBundle/Resources/public/js/jquery-2.2.4.min.js'
+                'https://code.jquery.com/ui/1.12.1/jquery-ui.js'
+                '@ReportBundle/Resources/public/js/echarts.min.js'
+                '@ReportBundle/Resources/public/js/custom.js'
+                '@ReportBundle/Resources/public/vendors/bootstrap/dist/js/bootstrap.min.js'
+                '@ReportBundle/Resources/public/vendors/fastclick/lib/fastclick.js'
+                '@ReportBundle/Resources/public/vendors/nprogress/nprogress.js'
+                '@ReportBundle/Resources/public/vendors/Chart.js/dist/Chart.min.js'
+                '@ReportBundle/Resources/public/vendors/Chart.js/dist/utils.js'
+                '@ReportBundle/Resources/public/build/js/custom.js'
+                '@ReportBundle/Resources/public/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js'
+                '@ReportBundle/Resources/public/vendors/moment/min/moment.min.js'
+                '@ReportBundle/Resources/public/vendors/fullcalendar/dist/fullcalendar.min.js'
+                '@ReportBundle/Resources/public/bxslider/jquery.bxslider.min.js'
+                '@ReportBundle/Resources/public/fancybox/jquery.fancybox.min.js'
+                '@ReportBundle/Resources/public/js/select2.js'
+                '@TetranzSelect2EntityBundle/Resources/public/js/select2entity.js'
+                '@ReportBundle/Resources/public/js/main.js'
+                '@ReportBundle/Resources/public/js/bootstrap-notify.min.js'
+            %}
+            <script src="{{ asset_url }}" type="text/javascript"></script>
+            {% endjavascripts %}
+        {% endblock %}
+    </body>
+</html>

@@ -1,0 +1,58 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% block menu %}{% endblock %}
+{% trans_default_domain 'FOSUserBundle' %}
+{% block body_class %}login{% endblock %}
+{% block fos_user_content %}
+    {% trans_default_domain 'FOSUserBundle' %}
+    <div>
+        <a class="hiddenanchor" id="signin"></a>
+        <div class="login_wrapper">
+            <div class="animate form login_form">
+                <section class="login_content">
+                    {% if error %}
+                        <div id="login-alert" class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
+                    <form action="{{ path("fos_user_security_check") }}" method="post">
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                        <h1>Inicio</h1>
+                        <div>
+                            <input id="login-username" type="text" class="form-control b-r-0" name="_username" value="{{ last_username }}" placeholder="{{ 'security.login.username'|trans }}">
+                        </div>
+                        <div>
+                            <input class="form-control b-r-0"  id="login-password" type="password" placeholder="{{ 'security.login.password'|trans }}" name="_password" required="required" />
+                        </div>
+                        <div class="input-group w100">
+                            <div class="checkbox pull-left">
+                                <label>
+                                    <input id="login-remember" type="checkbox" id="remember_me" name="_remember_me" value="on"> {{ 'security.login.remember_me'|trans }}
+                                </label>
+                            </div>
+                            <input class="btn bg-dark-ocean b-r-0 w50 submit pull-right" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+                        </div>
+                        <div>
+                            <a class="reset_pass" href="{{ path('fos_user_resetting_request') }}">
+                                <p>{{ 'resetting.request.submit'|trans }}</p>
+                            </a>
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <div class="separator">
+                            <div class="clearfix"></div>
+                            <div class="img-wrap">
+                                {% image '@ReportBundle/Resources/public/images/login-img.png' %}
+                                <img src="{{ asset_url }}" alt="" class="img-responsive my-3"/>
+                                {% endimage %}
+                            </div>
+                            <div class="img-wrap">
+                                {% image '@ReportBundle/Resources/public/images/footer-logo.png' %}
+                                <img src="{{ asset_url }}" alt="" class="img-responsive mx-auto"/>
+                                {% endimage %}
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+{% endblock fos_user_content %}

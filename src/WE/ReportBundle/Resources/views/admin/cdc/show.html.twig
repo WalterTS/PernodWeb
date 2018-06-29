@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="bg-primary text-center p-1 m-xs-b-1">
+        <h2>Centro de consumo: {{entity.nombre}}</h2>
+    </div>
+    <div class='table-wrap hidden-xs'>
+        <table class="table-striped table-bordered admin-list">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Cliente</th>
+                    <th>ClienteID</th>
+                    <th>Tipo</th>
+                    <th>Plaza</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{entity.nombre}}</td>
+                    <td>{{entity.cliente}}</td>
+                    <td>{{entity.clienteId}}</td>
+                    <td>{{entity.tipo}}</td>
+                    <td>{{entity.plaza}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <div class="col-xs-12">
+            <a href="{{ path('cdc_index') }}">
+                <button class="btn">Regresar a listado</button>
+            </a>
+            <a href="{{ path('cdc_edit', { 'id': entity.id }) }}">
+                <button class="btn bg-ocean">Editar</button>
+            </a>
+        </div>
+    </div>
+{% endblock %}

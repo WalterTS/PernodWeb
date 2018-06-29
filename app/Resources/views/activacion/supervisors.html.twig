@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title page-header bg-dark-ocean">
+                        {{ include('activacion/_header-info.html.twig') }}
+                    </div>
+                    <div class="x_content">
+                        <div class="clearfix">
+                            <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+                                {{ include('ReportBundle:activaciones:_supervisors_form.html.twig') }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{parent()}}
+    <script src="{{ asset('js/jquery.collection.js') }}"></script>
+
+    <script type="text/javascript">
+        var options = {};
+
+        if ($('.add-one-item').length) {
+            options = {
+                min: 1,
+                max: 1,
+                init_with_n_elements: 1
+            }
+        }
+
+        $('.my-selector').collection(options);
+    </script>
+{% endblock %}

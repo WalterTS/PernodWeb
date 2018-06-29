@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {% include 'ReportBundle:Default:filter-top.html.twig' with {'txtTitle': 'Filtrar por fecha', 'txtAdd': 'Nueva activación', 'pathAdd': ''} %}
+    <table class="table-striped table-bordered admin-list">
+        <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(pagination, 'Fecha', 'fecha') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Centro de consumo', 'cdc') }}</th>                
+                <th>{{ knp_pagination_sortable(pagination, 'Plaza', 'cdc.plaza') }}</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if pagination|length %}
+                {% for entity in pagination %}
+                    <tr>
+                        <td>{% if entity.fecha %}{{ entity.fecha|localizeddate('medium', 'medium', app.request.locale) }}{% endif %}</td>
+                        <td>{{entity.cdc}}</td>
+                        <td>{{entity.cdc.plaza}}</td>
+                        <td>
+                            {% if is_granted('ROLE_USER_PRODUCTOR') or is_granted('ROLE_USER_SUPERVISOR') %}
+                                <a href="{{ path('capture_app', { 'app_id': entity.id }) }}">
+                                    <button class="btn bg-ocean">Capturar</button>
+                                </a>
+                            {% else %}
+                                <a href="{{ path('activacion_show', { 'id': entity.id }) }}">
+                                    <button class="btn bg-ocean">Mostrar</button>
+                                </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan='60'>
+                        <p>NO TIENES PROYECTOS ASIGNADOS</p>
+                    </td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+{% endblock %}

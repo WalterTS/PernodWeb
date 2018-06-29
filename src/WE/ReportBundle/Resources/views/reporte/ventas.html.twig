@@ -1,0 +1,39 @@
+<div class="col-xs-12 col-sm-6">
+        <h3>CDC con ventas ALTAS</h3>
+        <table class="table table-bordered">
+            <tr>
+                <td>CDC</td>
+                <td>VENTAS</td>
+                <td>ACTIVACIONES</td>
+                <td>VENTAS PROMEDIO</td>
+            </tr>
+            {% for ventas in ventas.altas %}
+                <tr>
+                    <td>{{ventas.cdc}}</td>
+                    <td>{{ventas.ventas|round}}</td>
+                    <td>{{ventas.activaciones|round}}</td>
+                    <td>{{ventas.ventas_promedio|round}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div class="col-xs-12 col-sm-6">
+        <h3>CDC con ventas BAJAS</h3>
+        <table class="table table-bordered">
+            <tr>
+                <td>CDC</td>
+                <td>VENTAS</td>
+                <td>ACTIVACIONES</td>
+                <td>VENTAS PROMEDIO</td>
+            </tr>
+            {% for ventas in ventas.bajas %}
+                <tr>
+                    <td>{{ventas.cdc}}</td>
+                    <td>{{ventas.ventas|round}}</td>
+                    <td>{{ventas.activaciones|round}}</td>
+                    <td>{{ventas.ventas_promedio|round}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>

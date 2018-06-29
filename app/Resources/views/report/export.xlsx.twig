@@ -1,0 +1,55 @@
+{% xlsdocument %}
+{% xlssheet 'Reporte' %}
+
+{% xlsrow %}
+{% xlscell %}Agencia{% endxlscell %}
+{% xlscell %}Marca{% endxlscell %}
+{% xlscell %}Tipo Activación{% endxlscell %}
+{% xlscell %}Región{% endxlscell %}
+{% xlscell %}Plaza{% endxlscell %}
+{% xlscell %}CDC{% endxlscell %}
+{% xlscell %}TIPO  OUTLET{% endxlscell %}
+{% xlscell %}Fecha{% endxlscell %}
+{% xlscell %}Objetivo{% endxlscell %}
+{% xlscell %}Copeo{% endxlscell %}
+{% xlscell %}Botellas{% endxlscell %}
+{% xlscell %}TOTAL{% endxlscell %}
+{% for f in data.0.filas %}
+    {% for v in f.valores%}
+        {% xlscell %}{{v.columna.texto}}{% endxlscell %}
+    {% endfor%}
+{% endfor%}
+{% endxlsrow %}
+
+{% for d in data%}
+    {% xlsrow %}
+    {% xlscell %}{{ d.proyecto.agencia }}{% endxlscell %}
+    {% xlscell %}{{ d.proyecto.marca }}{% endxlscell %}
+    {% xlscell %}{{d.tipo.nombre}}{% endxlscell %}
+    {% xlscell %}
+    {% for region in d.proyecto.regiones%}
+        {{ region.nombre }}
+    {% endfor%}
+    {% endxlscell %}
+    {% xlscell %}
+    {% for plaza in d.proyecto.plazas%}
+        {{ plaza.nombre }}
+    {% endfor%}
+    {% endxlscell %}
+    {% xlscell %}{{ d.cdc.nombre is defined ? d.cdc.nombre : '???' }}{% endxlscell %}
+    {% xlscell %}{{d.cdc.tipo}}{% endxlscell %}
+    {% xlscell %}{{ d.fecha|date('Y-m-d') }}{% endxlscell %}
+    {% xlscell %}{{ d.proyecto.kpiTotal}}{% endxlscell %}
+    {% xlscell %}{{ d.copeo }}{% endxlscell %}
+    {% xlscell %}{{ d.botellas }}{% endxlscell %}
+    {% xlscell %}{{ d.total }}{% endxlscell %}
+    {% for f in d.filas %}
+        {% for v in f.valores%}
+            {% xlscell %}{{v.valor}}{% endxlscell %}
+        {% endfor%}
+    {% endfor%}
+    {% endxlsrow %}
+{% endfor %}
+
+{% endxlssheet %}
+{% endxlsdocument %}

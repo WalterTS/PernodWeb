@@ -1,0 +1,76 @@
+<div class="row">
+    <div class="col-xs-12 hidden-xs">
+        <div class="{{ list_filter is not defined ? 'row' }}">
+            {% if list_filter is not defined %}
+
+            <h1 class="filter-t-title">{{txtTitle}}</h1>
+            <a href="{{path(pathAdd)}}" class="filter-t-add">
+                {{txtAdd}} <span class="glyphicon glyphicon-plus"></span>
+            </a>
+            {% endif %}
+            <div class="col-xs-12 bg-filter-top">
+                <form action="" name="filterForm" method="get" class="form-inline filter-top-form">
+                    {% if searchBy is defined and searchBy == "date" or searchBy == "all" or searchBy == "proyecto" or searchBy == "activacion"%}
+                    <div class="form-group">
+                        <label for="from">Filtrar por fecha: &nbsp </label>
+                        <input value="{{pagination.params.searchFrom is defined ? pagination.params.searchFrom : ''}}" name="searchFrom" type="text" class="form-control js-datepicker"  placeholder="Desde">
+                    </div>
+                    <div class="form-group">
+                        <label for="to">a &nbsp</label>
+                        <input value="{{pagination.params.searchTo is defined ? pagination.params.searchTo : ''}}" name="searchTo" type="text" class="form-control js-datepicker"  placeholder="Hasta">
+                    </div>
+                    {% endif %}
+                    {% if searchBy is defined and searchBy == "name" or searchBy == "all" or searchBy == "user" or searchBy == "usuario" or searchBy == "plaza" or searchBy == "cdc" or searchBy == "agencia" or searchBy == "cdctipo" or searchBy == "proyecto" or searchBy == "activaciontipo"%}
+                        <div class="form-group">
+                            <label>Filtrar por nombre:</label>
+                            <input type="text" class="form-control" value="{{pagination.params.searchName is defined ? pagination.params.searchName : ''}}" name="searchName">
+                        </div>
+                    {% endif %}
+                    {% if searchBy is defined and searchBy == "email" or searchBy == "all" or searchBy == "user" or searchBy == "usuario"%}
+                        <div class="form-group">
+                            <label>Filtrar por correo:</label>
+                            <input type="text" class="form-control" value="{{pagination.params.searchEmail is defined ? pagination.params.searchEmail : ''}}" name="searchEmail">
+                        </div>
+                    {% endif %}
+                    {% if searchBy is defined and searchBy == ""%}
+                        <div class="form-group">
+                            <label>Filtrar por Región:</label>
+                            <input type="text" class="form-control" value="{{pagination.params.searchRegion is defined ? pagination.params.searchRegion : ''}}" name="searchRegion">
+                        </div>
+                    {% endif %}
+                    {% if searchBy is defined and searchBy == "proveedor" or searchBy == "comedor"%}
+                        {# RFC #}
+                        <div class="form-group">
+                            <label>Filtrar por RFC:</label>
+                            <input type="text" class="form-control" value="{{pagination.params.searchRfc is defined ? pagination.params.searchRfc : ''}}" name="searchRfc">
+                        </div>
+                    {% endif %}
+                    {% if searchBy is defined and searchBy == "proveedor"%}
+                        <div class="form-group">
+                            <label>Filtrar por Estado:</label>
+                            <input type="text" class="form-control" value="{{pagination.params.searchState is defined ? pagination.params.searchState : ''}}" name="searchState">
+                        </div>
+                        <div class="form-group">
+                            <label>Filtrar por Ciudad:</label>
+                            <input type="text" class="form-control" value="{{pagination.params.searchCity is defined ? pagination.params.searchCity : ''}}" name="searchCity">
+                        </div>
+                    {% endif %}
+                    {% if searchBy is defined and searchBy == "gastos"%}
+                        <div class="form-group">
+                            <label>Filtrar por Concepto:</label>
+                            <input type="text" class="form-control" value="{{pagination.params.searchConcept is defined ? pagination.params.searchConcept : ''}}" name="searchConcept">
+                        </div>
+                        <div class="form-group">
+                            <label>Filtrar por Número de factura:</label>
+                            <input type="text" class="form-control" value="{{pagination.params.searchBill is defined ? pagination.params.searchBill : ''}}" name="searchBill">
+                        </div>
+                    {% endif %}
+
+                    <div class="form-group">
+                        <button type="submit">Buscar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,163 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title page-header bg-dark-ocean">
+                        <h4 class="ml-2">NUEVO PROYECTO</h4>
+                        <ul class="nav navbar-right panel_toolbox hidden-xs">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="clearfix">
+                            <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+                                {{ form_start(form,{'attr':{'class':'form-expanded-selects'} }) }}
+                                {% form_theme form 'jquery.collection.html.twig' %}
+                                <div class='hidden'>
+                                    {{ form_row(form._token) }}
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="control-label m-xs-t-1">
+                                        {{ form_label(form.proyecto) }}
+                                    </div>
+                                    <div class="m-xs-b-1">
+                                        {{ form_widget(form.proyecto) }}
+                                        {{form_errors(form.proyecto)}}
+                                    </div>
+                                </div>
+
+                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="headingOne">
+                                            <h4 class="panel-title">
+                                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                    Informacion General del Proyecto
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                            <div class="panel-body">
+                                                <div class="projects-wrap">
+                                                    {% for choice in form.proyecto.vars.choices %}
+                                                        <div class="project-info-wrap hidden {{ 'project-id-'~choice.value }}" data-fecha-inicio="{{ choice.data.fechaInicio|date('Y-m-d') }}" data-fecha-final="{{ choice.data.fechaFin|date('Y-m-d') }}">
+                                                            <div class="col-md-6">
+                                                                <h2>Informacion General</h2>
+                                                                <p><strong>Fecha inicio:</strong> {{ choice.data.fechaInicio|date('Y-m-d') }}</p>
+                                                                <p><strong>Fecha de finalización:</strong> {{ choice.data.fechaFin|date('Y-m-d') }}</p>
+                                                                <p><strong>Descripción:</strong>{{ choice.data.descripcion }}</p>
+                                                                <p><strong>Marca:</strong> {{ choice.data.marca }}</p>
+                                                                <p><strong>Agencia:</strong> {{ choice.data.agencia }}</strong></p>
+                                                                <p><strong>Tipo de activaciones disponibles:</strong></p>
+                                                                {% for type in choice.data.activacionesTipo %}
+                                                                    <p>{{ type }}</p>
+                                                                {% endfor %}
+                                                                <p><strong>Total de activaciones:</strong> {{ choice.data.totalActivaciones }}</p>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <h2>Objetivos</h2>
+                                                                <p><strong>Tipo de venta:</strong> {{ choice.data.kpiTipo == 1 ? "Botella":"Copa" }}</p>
+                                                                <p><strong>Objetivo venta total:</strong> {{ choice.data.kpiTotal }}</p>
+                                                                <p><strong>Objetivo Impactos:</strong> {{ choice.data.kpiImpactos }}</p>
+                                                                <p><strong>Objetivo degustaciones:</strong> {{ choice.data.kpiDegustaciones }}</p>
+                                                            </div>
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <div class="form-group">
+                                            <div class="control-label m-xs-t-1">
+                                                {{ form_label(form.fecha.date,'Fecha') }}
+                                            </div>
+                                            <div class="m-xs-b-1">
+                                                {{ form_widget(form.fecha.date,{'attr':{'class':'form-control js-datepicker'} }) }}
+                                                {{form_errors(form.fecha.date)}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="form-group">
+                                            <div class="control-label m-xs-t-1">
+                                                {{ form_label(form.fecha.time,'Hora') }}
+                                            </div>
+                                            <div class="m-xs-b-1">
+                                                {{ form_widget(form.fecha.time,{'attr':{'class':'form-control js-timepicker'} }) }}
+                                                {{form_errors(form.fecha.time)}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="form-group">
+                                    <div class="control-label m-xs-t-1">
+                                        {{ form_label(form.tipo) }}
+                                    </div>
+                                    <div class="m-xs-b-1">
+                                        {{ form_widget(form.tipo) }}
+                                        {{form_errors(form.tipo)}}
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="control-label m-xs-t-1">
+                                        {{ form_label(form.cdc) }}
+                                    </div>
+                                    <div class="m-xs-b-1">
+                                        {{ form_widget(form.cdc) }}
+                                        {{form_errors(form.cdc)}}
+                                    </div>
+                                </div>
+
+                                {% include 'activacion/_buttons.html.twig' with {'send': 'y' } %}
+                                {{ form_end(form) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{parent()}}
+    <script src="{{ asset('js/jquery.collection.js') }}"></script>
+
+    <script type="text/javascript">
+        $('.my-selector').collection();
+
+        var $proyect = $('#we_reportbundle_activacion_proyecto');
+        $proyect.change(function () {
+            var $form = $(this).closest('form');
+            var data = {};
+            data[$proyect.attr('name')] = $proyect.val();
+            $.ajax({
+                url: $form.attr('action'),
+                type: $form.attr('method'),
+                data: data,
+                success: function (html) {
+                    $('#we_reportbundle_activacion_cdc').replaceWith(
+                            $(html).find('#we_reportbundle_activacion_cdc')
+                            );
+
+                    $('#we_reportbundle_activacion_tipo').replaceWith(
+                            $(html).find('#we_reportbundle_activacion_tipo')
+                            );
+                }
+            });
+        });
+
+    </script>
+{% endblock %}

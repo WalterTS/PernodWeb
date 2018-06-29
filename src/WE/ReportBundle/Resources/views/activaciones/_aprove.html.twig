@@ -1,0 +1,9 @@
+{% if activacion.status.id == 1 and activacion.isValidUser(app.user,'Gerente de marca') %}
+    <div class="bg-primary text-center btn-approve-wrap">
+        <a href="{{path('activaciones_operate',{'status_id':2,'activacion_id':activacion.id})}}" class="text-white"><i class="fa fa-check-circle-o"></i></a>
+        <h2>Aprobar</h2>
+        <a href="{{path('activaciones_operate',{'status_id':3,'activacion_id':activacion.id})}}" class=""><i class="fa fa-times-circle-o"></i></a>
+    </div>
+{% else %}
+    <p>Status: {{activacion.status.nombre}}</p>
+{% endif %}

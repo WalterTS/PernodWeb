@@ -1,0 +1,70 @@
+{% if (activacion.status.id >= 4 and not(is_granted('ROLE_USER_GERENTE'))) or (is_granted('ROLE_USER_GERENTE') and activacion.status.id == 5) %}
+    {% if activacion.total > 0 or activacion.copeo > 0 or activacion.botellas > 0 %}
+        <table class="table">
+            <tr>
+                <th>Total</th>
+                <th>Copeo</th>
+                <th>Botellas</th>
+            </tr>
+            <tr>
+                <td>{{activacion.total}}</td>
+                <td>{{activacion.copeo}}</td>
+                <td>{{activacion.botellas}}</td>
+            </tr>
+        </table>
+    {% endif %}
+
+    {% if activacion.images and activacion.images|length > 0 %}
+        <p>Reporte Fotografico: </p>
+        <div class="slider-wrap">
+            <div class="slider-content" data-slider-name="reporteFotografico" data-max-slides="2" data-slide-width="9999" data-pager="false" data-controls='true'>
+                {% for image in activacion.images %}
+                    <div class="slide-wrap">
+                        <a href="{{ vich_uploader_asset(image, 'imageFile') }}" data-fancybox="images" >
+                            <img src="{{ vich_uploader_asset(image, 'imageFile') }}" alt="{{image.nombre}}" class='img-responsive mx-auto img-gallery' />
+                        </a>   
+                        <p> Datos de la imagen:</p>
+                        <p>{{image.nombre}}</p>
+                        <p>Creación: {{image.createdAt|localizeddate('full', 'full', app.request.locale)}}</p>
+                        {% if image.getMetaData != false %}
+                            <p><strong>Datos de archivo</strong></p>
+                            {% for key, item in image.getMetaData["FILE"] %}
+                                {% if item != "" and item != null %}
+                                    <p>{{key}}: {{item}} </p>
+                                {% endif %}
+                            {% endfor %}
+
+                            <p><strong>Propiedades de archivo</strong></p>
+                            {% for key, item in image.getMetaData["COMPUTED"] %}
+                                {% if item != "" and item != null %}
+                                    <p>{{key}}: {{item}} </p>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if image.getMetaData["IFD0"] is defined %}
+                                <p><strong>Datos de resolución</strong></p>
+                                {% for key, item in image.getMetaData["IFD0"] %}
+                                    {% if item != "" and item != null %}
+                                        <p>{{key}}: {{item}} </p>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    {% if activacion.filas %}
+        <table class="table">
+            {% for fila in activacion.filas %}
+                {% for valor in fila.valores %}
+                    <tr>
+                        <th>{{valor.columna.texto}}</th><td>{{valor.valor}}</td>
+                    </tr>
+                {% endfor %}
+            {% endfor %}
+        </table>
+    {% endif %}
+{% endif %}

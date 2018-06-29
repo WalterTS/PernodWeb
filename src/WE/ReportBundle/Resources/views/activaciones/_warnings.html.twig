@@ -1,0 +1,13 @@
+{% if activacion.status.id == 1 and activacion.logs %}
+    {% for log in activacion.logs %}
+        <div class="alert alert-{{log.tipo}}" role="alert">
+            <p><strong>Este proyecto tiene problemas en lo siguientes puntos:</strong></p>
+            <ul>
+                {% for description in log.contenido %}
+                    <li><p>{{description}}</p></li>
+                    {% endfor %}
+            </ul>
+            <p>*La aprobación del proyecto dependera la revisión de gerente</p>
+        </div>
+    {% endfor %}
+{% endif %}

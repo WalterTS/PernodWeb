@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="bg-primary text-center p-1 m-xs-b-1">
+        <h2>Plaza: {{plaza.nombre}}</h2>
+    </div>
+    <div class='table-wrap hidden-xs'>
+        <table class="table-striped table-bordered admin-list">
+            <thead>
+                <tr>
+                    <th>Región</th>
+                    <th>Abreviación</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+
+                    <td>{{plaza.region}}</td>
+                    <td>{{plaza.abreviacion}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <div class="col-xs-12">
+            <a href="{{ path('plaza_index') }}">
+                <button class="btn">Regresar a listado</button>
+            </a>
+            <a href="{{ path('plaza_edit', { 'id': plaza.id }) }}">
+                <button class="btn bg-ocean">Editar</button>
+            </a>
+        </div>
+    </div>
+{% endblock %}

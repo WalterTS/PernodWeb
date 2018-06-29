@@ -1,0 +1,6 @@
+{% for entity in entities%}
+    <li>
+        <a href="{{ path('cambiar_marca',{'id':entity.id} )}}">{{ entity.nombre }}</a>
+    </li>
+{% endfor %}
+<li><a href="{{ path('marcas_grid') }}">Ver más marcas</a></li>

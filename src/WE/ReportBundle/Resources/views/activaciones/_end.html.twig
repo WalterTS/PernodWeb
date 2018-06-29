@@ -1,0 +1,9 @@
+{% if activacion.status.id == 10 and activacion.isValidUser(app.user,'Ejecutivo de cuenta') %}
+    <p>Debes de aprobar el reporte que fue revisado por un productor</p>
+    <div class="bg-primary text-center btn-approve-wrap">
+        <a href="{{path('activaciones_operate',{'status_id':5,'activacion_id':activacion.id})}}" class="text-white"><i class="fa fa-check-circle-o"></i></a>
+        <h2>Aprobar</h2>
+        <a href="{{path('activaciones_operate',{'status_id':14,'activacion_id':activacion.id})}}" class=""><i class="fa fa-times-circle-o"></i></a>
+    </div>
+{% endif %}
+{% include 'ReportBundle:activaciones:_reporte_show.html.twig'  %}

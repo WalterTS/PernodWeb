@@ -1,0 +1,13 @@
+<div class="x_content">
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{label}}" role="alert">
+                        <p>{{ message }}</p>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+</div>

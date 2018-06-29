@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <table class='table table-bordered'>
+        <tr>
+            <td>Agencia</td>
+            <td>Marca</td>
+            <td>Tipo Activación</td>
+            <td>Región</td>
+            <td>Plaza</td>
+            <td>CDC</td>
+            <td>TIPO  OUTLET</td>
+            <td>Fecha</td>
+            <td>Objetivo</td>
+            <td>Copeo</td>
+            <td>Botellas</td>
+            <td>TOTAL</td>
+            {% for f in data.0.filas %}
+                {% for v in f.valores%}
+                    <td>{{v.columna.texto}}</td>
+                {% endfor%}
+            {% endfor%}
+        </tr>
+
+        {% for d in data%}
+            <tr>
+                <td>{{ d.proyecto.agencia }}</td>
+                <td>{{ d.proyecto.marca }}</td>
+                <td>{{d.tipo.nombre}}</td>
+                <td>
+                    {% for region in d.proyecto.regiones%}
+                        {{ region.nombre }}
+                    {% endfor%}
+                </td>
+                <td>
+                    {% for plaza in d.proyecto.plazas%}
+                        {{ plaza.nombre }}
+                    {% endfor%}
+                </td>
+                <td>{{ d.cdc.nombre is defined ? d.cdc.nombre : '???' }}</td>
+                <td>{{d.cdc.tipo}}</td>
+                <td>{{ d.fecha|date('Y-m-d') }}</td>
+                <td>{{ d.proyecto.kpiTotal}}</td>
+                <td>{{ d.copeo }}</td>
+                <td>{{ d.botellas }}</td>
+                <td>{{ d.total }}</td>
+                {% for f in d.filas %}
+                    {% for v in f.valores%}
+                        <td>{{v.valor}}</td>
+                    {% endfor%}
+                {% endfor%}
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

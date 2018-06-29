@@ -1,0 +1,121 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {% include 'ReportBundle:Default:filter-top.html.twig' with {'txtTitle': 'Filtrar por fecha', 'txtAdd': 'Crear activación', 'pathAdd': 'activacion_index', 'report_filter': 'y'} %}
+    <div class="col-xs-12 col-sm-6">
+        <div id="mainb" style="height:450px;"></div>
+    </div>
+
+    <div class="col-xs-12 col-sm-6">
+        <canvas id="cdc_chart" style="height:450px;"></canvas>
+    </div>
+
+
+    <div class="clearfix visible-sm-block visible-lg-block visible-md-block"></div>
+
+
+    {% include 'ReportBundle:reporte:_activaciones_resume_data.html.twig'  %}
+    {# include 'ReportBundle:reporte:_resume_data.html.twig'  #}
+    {% include 'ReportBundle:reporte:_resume_impactos.html.twig'  %}
+    {% include 'ReportBundle:reporte:_promociones.html.twig'  %}
+    {% include 'ReportBundle:reporte:_comentarios.html.twig'  %}
+    {% include 'ReportBundle:reporte:_comentarios_mood.html.twig'  %}
+    <div class="clearfix visible-sm-block visible-lg-block visible-md-block"></div>
+
+    {% include 'ReportBundle:reporte:_precios_promedio.html.twig'  %}
+
+    {% if data_share_chart.values %}
+        <div class="col-xs-12 col-sm-4 px-0">
+            <h3>Share total</h3>
+            <div class="graph-wrap text-center">
+                <canvas id="graphshare" class="graph-canvas" height="400"></canvas>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="col-xs-12 col-sm-4 px-0">
+        <h3>Venta botellas / copas</h3>
+        <div class="graph-wrap text-center">
+            <canvas id="kpisgraph" class="graph-canvas" height="400"></canvas>
+        </div>
+    </div>
+
+
+    {% if dataShareByCDCData is defined and not (dataShareByCDCData == []) %}
+        <div class="col-xs-12 col-sm-6">
+            <h3>Share por Centro de consumo</h3>
+            <canvas id="graphsharebycdc" style="height:450px;"></canvas>
+        </div>
+    {% endif %}
+
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        var brand_color = "{{ brand is defined and brand is not null and not(brand.color == "")  ? brand.color : '#26B99A' }}";
+        var brand_name = '{{brand ? brand.nombre:"Todas las marcas"}}';
+        var data_chart = '{{data_chart|serialize|raw}}';
+        var cdc_chart = '{{ventas_chart|serialize|raw}}';
+        var data_share_chart = '{{data_share_chart|serialize|raw}}';
+        var comentarios_chart = '{{comentarios_chart|serialize|raw}}';
+        var precios_chart_data = '{{promedios|serialize|raw}}';
+        var precios_object = JSON.parse(precios_chart_data);
+        var kpis_object = '{{kpi_chart|serialize|raw}}';
+
+        var dataShareByCDCData = '{{dataShareByCDCData|serialize|raw}}';
+        var dataShareByCDCLabels = '{{dataShareByCDCLabels|serialize|raw}}';
+        var series_data = [];
+
+        {% set index_var = 0 %}
+        {% if promedios.data is defined %}
+            {% for key,promedio in promedios.data %}
+                series_data.push({
+                    name: '{{promedios.labels[key]}}',
+                    type: 'line',
+                    stack: '{{promedios.labels[key]}}',
+                    data: JSON.parse('{{promedio|serialize|raw}}')
+                });
+            {% endfor %}
+        {% endif %}
+
+        {% if promedios %}
+            var precios_options = {
+                title: {
+                    text: "Precio"
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data: precios_object.labels
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                toolbox: {
+                    feature: {
+                        saveAsImage: {
+                            title: 'Guardar imagén'
+                        }
+                    }
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: precios_object.xlabels
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: series_data
+            };
+        {% else %}
+            var precios_options = null;
+        {% endif %}
+    </script>
+    {{parent()}}
+{% endblock %}

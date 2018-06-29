@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title page-header bg-dark-ocean">
+                        {{ include('activacion/_header-info.html.twig') }}
+                    </div>
+                    {{ include('ReportBundle:activaciones:_flashes.html.twig') }}
+                    {% if activacion.status.id == 7 or activacion.status.id == 13 or activacion.status.id == 14 or activacion.status.id == 4 %}
+                        <div class="clearfix">
+                            <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+                                <div class="x_title page-header">
+                                    <h4 class="ml-2">{{instrumento.nombre}} <small>{{instrumento.instrucciones}}</small></h4>
+                                </div>
+                            </div>
+
+                        </div>
+                        {% if activacion.total == 0 or activacion.status.id == 13 or activacion.status.id == 14  %}
+                            <div class="col-xs-12 col-md-6 col-md-offset-3 mt-2">
+                                {% form_theme form_activacion
+                                    'jquery.collection.html.twig'
+                                    'form-themes/upload-images-collection.html.twig'
+                                %}
+                                {{ form_start(form_activacion,{'attr':{'action':path('update_app',{app_id:activacion.id}),'class':'form-horizontal form-label-left'} }) }}
+                                {{form_widget(form_activacion)}}
+                                {% include 'activacion/_buttons.html.twig' %}
+                                {{ form_errors(form_activacion)}}
+                                {{ form_end(form_activacion) }}
+                            </div>
+                        {% endif %}
+
+                        {% if activacion.total > 0 and activacion.status.id != 13  %}
+                            <div class="x_content">
+                                <div class="clearfix">
+                                    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+                                        {{ form_start(form,{'attr':{'action':path('capture_app',{app_id:activacion.id}),'class':''} }) }}
+                                        {% for field in form.children %}
+                                            <div class="form-group capture-form">
+                                                {% if field.vars.name != '_token' %}
+                                                    {{ form_label(field,field, { 'label_attr' : { 'class': 'm-xs-t-1' } }) }}
+                                                {% endif %}
+                                                {% if field.vars.name == "save" %}
+                                                    <div class="text-center mt-2">
+                                                        {{ form_widget(field,{'attr': {'class':'btn btn-primary'}}) }}
+                                                        <button type="reset" class="btn btn-secondary">LIMPIAR</button>
+                                                        <a href="{{path('activaciones_list')}}" class="btn btn-secondary">CANCELAR</a>
+                                                    </div>
+                                                {% else %}
+                                                    <div class="m-xs-b-1">
+                                                        {{ form_widget(field, {'attr': {'class': 'form-control'} }) }}
+                                                        {% if field.vars.errors is defined %}
+                                                            {{form_errors(field)}}
+                                                        {% endif %}
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        {% endfor %}
+                                        {{ form_end(form) }}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                    {% elseif activacion.status.id == 6  %}
+                        {% include 'ReportBundle:activaciones:_checkin.html.twig' %}
+                    {% else %}
+                        <div class="x_title page-header">
+                            <p>Status: {{activacion.status.nombre}}</p>
+                        </div>
+                    {% endif %}
+
+                    {% include 'ReportBundle:activaciones:_comments_supervisor.html.twig' %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{parent()}}
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    <script src="{{ asset('js/jquery.collection.js') }}"></script>
+
+    <script type="text/javascript">
+        $('.my-selector').collection();
+    </script>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "@FOSUser/layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+{% block body_class %}login{% endblock %}
+
+{% block fos_user_content %}
+    <div>
+        <a class="hiddenanchor" id="signin"></a>
+        <div class="login_wrapper">
+            <div class="animate form login_form">
+                <section class="login_content">
+                    <form action="{{ path('fos_user_resetting_send_email') }}" method="post">
+                        <h1>Contraseña</h1>
+                        <div>
+                            <p>
+                                {{ 'resetting.check_email'|trans({'%tokenLifetime%': tokenLifetime})|nl2br }}
+                            </p>
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <div class="separator">
+                            <div class="clearfix"></div>
+                            <div class="img-wrap">
+                                {% image '@ReportBundle/Resources/public/images/login-img.png' %}
+                                <img src="{{ asset_url }}" alt="" class="img-responsive my-3"/>
+                                {% endimage %}
+                            </div>
+                            <div class="img-wrap">
+                                {% image '@ReportBundle/Resources/public/images/footer-logo.png' %}
+                                <img src="{{ asset_url }}" alt="" class="img-responsive mx-auto"/>
+                                {% endimage %}
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+{% endblock %}

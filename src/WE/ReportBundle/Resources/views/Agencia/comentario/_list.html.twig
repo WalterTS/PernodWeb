@@ -1,0 +1,11 @@
+{% if entity and app.user and is_granted('ROLE_USER_CUENTA') %}
+	<div class="comment-gc">
+	    <p><strong>{{entity.fecha|localizeddate('short', 'none', app.request.locale)}}</strong></p>
+	    <p>{{entity.comentario}}</p>
+	    <ul class="rate-container">
+	        <li><a class="face-rate rate-m" href="{{path('agencia_comentario_rate',{id:entity.id,rate:1})}}"></a></li>
+	        <li><a class="face-rate rate-r" href="{{path('agencia_comentario_rate',{id:entity.id,rate:2})}}"></a></li>
+	        <li><a class="face-rate rate-b" href="{{path('agencia_comentario_rate',{id:entity.id,rate:3})}}"></a></li>
+	    </ul>
+    </div>
+{% endif %} 

@@ -1,0 +1,3 @@
+{% if activacion.status.id == 8 and activacion.isValidUser(app.user,'Productor') %}
+    {{ include('ReportBundle:activaciones:_supervisors_form.html.twig') }}
+{% endif %}

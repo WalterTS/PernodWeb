@@ -1,0 +1,37 @@
+{% if is_granted('ROLE_USER_SUPERVISOR') and activacion.status.id == 7 %}
+    <div class="clearfix"></div>
+    <div class="bg-primary p-2 m-xs-b-1 m-xs-t-1 m-sm-t-2">
+        <h2>Comentarios / Promociones</h2>
+    </div>
+
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+            <div class="form-wrap">
+                {{ form_start(comentario_form,{'attr':{action:path('inbox_supervisor_post')}}) }}
+                {% form_theme comentario_form 'jquery.collection.html.twig' %}
+                <div class="form-group capture-form m-xs-b-1">
+                    <div class="control-label">
+                        {{ form_label(comentario_form.comentario,'Añadir') }}
+                    </div>
+                     <div class="">
+                        {{ form_widget(comentario_form.tipo,{'attr':{'class':'form-control'} }) }}
+                        {{form_errors(comentario_form.tipo)}}
+                    </div>
+                    <div class="">
+                        {{ form_widget(comentario_form.comentario,{'attr':{'class':'form-control','rows':'4'} }) }}
+                        {{form_errors(comentario_form.comentario)}}
+                    </div>
+                </div>
+                <div class='hidden'>
+                    {{form_widget(comentario_form.user_from,{data: app.user})}}
+                    {{form_widget(comentario_form.activacion,{data: activacion})}}
+                </div>
+                <div class="form-group clearfix text-center">
+                    <button type="submit" class="btn btn-primary">GUARDAR</button>
+                </div>
+                {{ form_end(comentario_form) }}
+
+            </div>
+        </div>
+    </div>
+{% endif %}

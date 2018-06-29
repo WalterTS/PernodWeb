@@ -1,0 +1,59 @@
+<div class="col-xs-12 hidden-xs">
+    <div class="row">
+        <h1 class="filter-t-title">Reporte</h1>
+        {% if report_filter is defined %}
+            <a href="{{ path('export',{"_format":'xlsx'}) }}" class="filter-t-add">Exportar<span class="fa fa-file-excel-o" aria-hidden="true"></span></a>
+        {% else %}
+            <a href="#" class="filter-t-add"></a>
+        {%endif%}
+        <div class="col-xs-12 p-1 bg-cream-dark mb-2">
+            {% if report_filter is defined %}
+                <div class="panel panel-default accordion-form mb-0">
+                    <div class="panel-heading" role="tab" id="headingTwo">
+                        <h4 class="panel-title">
+                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Mostrar filtros
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                        <div class="col-xs-12 panel-body">
+                            {{ form_start(form,{'attr':{'class':'form-expanded-selects search-f'} }) }}
+                            {{form_widget(form)}}
+                            <div class="form-group pull-right mt-2">
+                                <input type="submit" class="report-f-btn" value="Filtrar" />
+                            </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <form action="" method="post" class="form-inline filter-top-form calendar">
+                    <div class="form-group">
+                        <label for="from">Filtrar por fecha: &nbsp </label>
+                        <input required name="date_from" value="{{ parameters.date_from is defined ? parameters.date_from:'' }}" type="text" class="form-control date-from" id="from" placeholder="Desde">
+                    </div>
+                    <div class="form-group">
+                        <label for="to">a &nbsp</label>
+                        <input required name="date_to" value="{{ parameters.date_to is defined ? parameters.date_to:'' }}" type="text" class="form-control date-to" id="to" placeholder="Hasta">
+                    </div>
+                    {% if brands is defined %}
+                        <div class="form-group">
+                            <label for="from">Filtrar por marca: &nbsp </label>
+                            <select name="brand_id" class="form-control">
+                                <option value="">Marca</option>
+                                {% for item in brands %}
+                                    <option value='{{item.id}}'>{{item.nombre}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    {% endif %}
+                    <div class="form-group">
+                        <button type="submit">Buscar</button>
+                    </div>
+                </form>
+            {% endif %}
+
+        </div>
+    </div>
+</div>

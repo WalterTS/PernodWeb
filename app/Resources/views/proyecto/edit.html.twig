@@ -1,0 +1,245 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="clearfix"></div>
+        <div class="x_title page-header bg-dark-ocean">
+            <h4 class="ml-2">EDITAR PLAN</h4>
+            <div class="clearfix"></div>
+        </div>
+        {{ form_start(edit_form,{'attr':{'class':'form-expanded-selects mt-2'} }) }}
+        {% form_theme edit_form 'jquery.collection.html.twig' %}
+        <div class='hidden'>
+            {{ form_row(edit_form._token) }}
+        </div>
+        <div class="col-md-6 col-md-offset-3 panel-group accordion-form" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingOne">
+                      <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                          Información General
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                      <div class="panel-body">
+                        <div class="form-group">
+                            {{ form_label(edit_form.nombre, 'Nombre') }}
+                            {{ form_errors(edit_form.nombre) }}
+                            {{ form_widget(edit_form.nombre, {'attr': {'class': 'form-control'} }) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(edit_form.fecha_inicio, 'Fecha de Inicio') }}
+                            {{ form_errors(edit_form.fecha_inicio) }}
+                            {{ form_widget(edit_form.fecha_inicio) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(edit_form.fecha_fin, 'Fecha de finalización') }}
+                            {{ form_errors(edit_form.fecha_fin) }}
+                            {{ form_widget(edit_form.fecha_fin) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(edit_form.descripcion, 'Descripción') }}
+                            {{ form_errors(edit_form.descripcion) }}
+                            {{ form_widget(edit_form.descripcion, {'attr': {'class': 'form-control'} }) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(edit_form.marca, 'Marca') }}
+                            {{ form_errors(edit_form.marca) }}
+                            {{ form_widget(edit_form.marca, {'attr': {'class': 'form-control'} }) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(edit_form.agencia, 'Agencia') }}
+                            {{ form_errors(edit_form.agencia) }}
+                            {{ form_widget(edit_form.agencia, {'attr': {'class': 'form-control'} }) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(edit_form.activaciones_tipo, 'Tipo de activaciones') }}
+                            {{ form_errors(edit_form.activaciones_tipo) }}
+                            {{ form_widget(edit_form.activaciones_tipo, {'attr': {'class': 'form-control'} }) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(edit_form.total_activaciones, 'Total de activaciones') }}
+                            {{ form_errors(edit_form.total_activaciones) }}
+                            {{ form_widget(edit_form.total_activaciones, {'attr': {'class': 'form-control'} }) }}
+                        </div>
+                      </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingTwo">
+                      <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                          Objetivos
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                      <div class="panel-body">
+                            <div class="form-group">
+                                {{ form_label(edit_form.kpi_tipo, 'Tipo de venta') }}
+                                {{ form_errors(edit_form.kpi_tipo) }}
+                                {{ form_widget(edit_form.kpi_tipo, {'attr': {'class': 'form-control'} }) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(edit_form.kpi_total, 'Venta total') }}
+                                {{ form_errors(edit_form.kpi_total) }}
+                                {{ form_widget(edit_form.kpi_total, {'attr': {'class': 'form-control'} }) }}
+                            </div>                            
+                            <div class="form-group">
+                                {{ form_label(edit_form.kpi_impactos, 'Impactos') }}
+                                {{ form_errors(edit_form.kpi_impactos) }}
+                                {{ form_widget(edit_form.kpi_impactos, {'attr': {'class': 'form-control'} }) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(edit_form.kpi_degustaciones, 'Degustaciones') }}
+                                {{ form_errors(edit_form.kpi_degustaciones) }}
+                                {{ form_widget(edit_form.kpi_degustaciones, {'attr': {'class': 'form-control'} }) }}
+                            </div>
+                            {# <div class="form-group">
+                                {{ form_label(edit_form.kpi_ventas, 'Ventas') }}
+                                {{ form_errors(edit_form.kpi_ventas) }}
+                                {{ form_widget(edit_form.kpi_ventas, {'attr': {'class': 'form-control'} }) }}
+                            </div> #}
+                      </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingThree">
+                      <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                          Regionalización
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                      <div class="panel-body">
+                        <div class="form-group search-f">
+                            {{ form_label(edit_form.regiones, 'Regiones') }}
+                            {{ form_errors(edit_form.regiones) }}
+                            {{ form_widget(edit_form.regiones, {'attr': {'class': 'form-control'} }) }}
+                        </div>
+                        <div class="form-group search-f">
+                            {{ form_label(edit_form.plazas, 'Plazas') }}
+                            {{ form_errors(edit_form.plazas) }}
+                            {{ form_widget(edit_form.plazas, {'attr': {'class': 'form-control'} }) }}
+                        </div>
+                        <div class="form-group search-f">
+                            {{ form_label(edit_form.cdcs, 'Centros de consumo') }}
+                            {{ form_errors(edit_form.cdcs) }}
+                            {{ form_widget(edit_form.cdcs, {'attr': {'class': 'form-control'} }) }}
+                        </div>
+                      </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingThree">
+                      <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                          Asignaciones
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                      <div class="panel-body">
+                            <div class="form-group">
+                                {{ form_label(edit_form.asignacionesRegion, 'Asignaciones de región') }}
+                                {{ form_errors(edit_form.asignacionesRegion) }}
+                                {{ form_widget(edit_form.asignacionesRegion) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(edit_form.asignacionesSquare, 'Asignaciones de plaza') }}
+                                {{ form_errors(edit_form.asignacionesSquare) }}
+                                {{ form_widget(edit_form.asignacionesSquare) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(edit_form.asignacionesCdc, 'Asignaciones de centros de consumo') }}
+                                {{ form_errors(edit_form.asignacionesCdc) }}
+                                {{ form_widget(edit_form.asignacionesCdc) }}
+                            </div>
+                      </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingThree">
+                      <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                          Filtros
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                      <div class="panel-body">
+                            <div class="form-group">
+                                {{ form_label(edit_form.tiempo_cancelacion, 'Tiempo de cancelación') }}
+                                {{ form_errors(edit_form.tiempo_cancelacion) }}
+                                {{ form_widget(edit_form.tiempo_cancelacion, {'attr': {'class': 'form-control'} }) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(edit_form.maximo_plaza, 'Máximo plaza') }}
+                                {{ form_errors(edit_form.maximo_plaza) }}
+                                {{ form_widget(edit_form.maximo_plaza, {'attr': {'class': 'form-control'} }) }}
+                            </div>
+                      </div>
+                    </div>
+                </div>
+                {% include 'proyecto/_buttons.html.twig' with {'send': 'yes' } %}
+                {{ form_end(edit_form) }}
+    </div>
+</div>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{parent()}}
+    <script src="{{ asset('js/jquery.collection.js') }}"></script>
+
+    <script type="text/javascript">
+        $('.my-selector').collection();
+
+        {#var $proyect = $('#we_reportbundle_proyecto_regiones');
+
+        $proyect.change(function () {
+            var $form = $(this).closest('form');
+            var data = {};
+            data[$proyect.attr('name')] = $proyect.val();
+            $.ajax({
+                url: $edit_form.attr('action'),
+                type: $edit_form.attr('method'),
+                data: data,
+                success: function (html) {
+                    $('#we_reportbundle_proyecto_plazas').replaceWith(
+                            $(html).find('#we_reportbundle_proyecto_plazas')
+                            );
+
+                    var $plazas = $('#we_reportbundle_proyecto_plazas');
+
+                    $plazas.change(function () {
+                        var $form = $(this).closest('form');
+                        var data = {};
+                        data[$proyect.attr('name')] = $proyect.val();
+                        data[$plazas.attr('name')] = $plazas.val();
+                        $.ajax({
+                            url: $edit_form.attr('action'),
+                            type: $edit_form.attr('method'),
+                            data: data,
+                            success: function (html) {
+                                $('#we_reportbundle_proyecto_cdcs').replaceWith(
+                                        $(html).find('#we_reportbundle_proyecto_cdcs')
+                                        );
+                            }
+                        });
+                    });
+                }
+            });
+        });#}
+
+
+
+
+    </script>
+{% endblock %}

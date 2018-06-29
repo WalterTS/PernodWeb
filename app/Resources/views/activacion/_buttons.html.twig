@@ -1,0 +1,9 @@
+<div class="text-center mt-2">
+    <button type="submit" class="btn btn-primary">{{send is defined ? 'ENVIAR' : 'GUARDAR'}}</button>
+    <button type="reset" class="btn btn-secondary">LIMPIAR</button>
+    {% if cancel is defined %}    	
+    		<a href="{{path(cancel)}}" class="btn btn-secondary">CANCELAR</a>  
+    {% else %}
+    	<a href="{{path('activacion_index')}}" class="btn btn-secondary">CANCELAR</a>
+    {% endif %}    
+</div>

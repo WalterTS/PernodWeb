@@ -1,0 +1,31 @@
+{% block _CheckIn_images_entry_row %}
+    <div class="row">
+        <div class="col-xs-12 m-xs-b-1">
+            {{ form_label(form) }}
+            {{ form_errors(form) }}
+            {{ form_widget(form) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block _CheckIn_images_entry_widget %}
+    {{ form_widget(form) }}
+{% endblock %}
+
+{% block _CheckIn_images_entry_nombre_widget %}
+    <div class="m-xs-b-1">
+        {{ form_errors(form) }}
+        {{ form_widget(form,{'attr':{'class':'form-control'} }) }}
+    </div>
+{% endblock %}
+
+{% block _CheckIn_images_entry_imageFile_file_widget %}
+    <div class="m-xs-b-1">
+        {{ form_errors(form) }}
+        <label class="btn btn-primary btn-file">
+            <span class="btn-text">Seleccionar foto</span>
+            {{ form_widget(form,{'attr':{'class':'hidden'} } ) }}
+        </label>
+
+    </div>
+{% endblock %}

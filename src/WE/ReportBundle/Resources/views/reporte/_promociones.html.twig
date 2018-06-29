@@ -1,0 +1,23 @@
+{% if entities %}
+    <div class="col-xs-12 col-sm-6">
+        <h3>Promociones</h3>
+        <table class="table table-bordered">
+            <tr>
+                <td>Fecha</td>
+                <td>CDC</td>
+                <td>Marca</td>
+                <td>Promo</td>
+            </tr>
+               {% for activacion in entities %}
+                {% for promocion in activacion.getPromocionesByActivacion %}
+                <tr>
+                    <td>{{promocion.fecha|localizeddate('short', 'none', app.request.locale)}}</td>
+                    <td>{{promocion.activacion.cdc}}</td>
+                    <td>{{promocion.activacion.proyecto.marca}}</td>
+                    <td>{{promocion.comentario}}</td>
+                </tr>
+            {% endfor  %}
+            {% endfor %}
+        </table>
+    </div>
+{% endif %}

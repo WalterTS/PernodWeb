@@ -1,0 +1,45 @@
+security:
+    encoders:
+        FOS\UserBundle\Model\UserInterface: bcrypt
+
+    role_hierarchy:
+        ROLE_USER_EJECUTIVO: ROLE_USER
+        ROLE_USER_KAM: ROLE_USER_EJECUTIVO
+        ROLE_USER_GERENTE: ROLE_USER
+        ROLE_USER_CUENTA: ROLE_USER
+        ROLE_USER_PRODUCTOR: ROLE_USER_SUPERVISOR
+        ROLE_USER_SUPERVISOR: ROLE_USER
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN,ROLE_USER_GERENTE,ROLE_USER_KAM,ROLE_USER_EJECUTIVO,ROLE_USER_CUENTA,ROLE_USER_PRODUCTOR]
+
+    providers:
+        fos_userbundle:
+            id: fos_user.user_provider.username
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            pattern: ^/
+            form_login:
+                always_use_default_target_path: true
+                default_target_path: homepage
+                provider: fos_userbundle
+                csrf_token_generator: security.csrf.token_manager
+
+            logout:       true
+            anonymous:    true
+    access_control:
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/activaciones, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/capture, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/administracion, role: ROLE_USER_GERENTE }
+        - { path: ^/admin, role: ROLE_SUPER_ADMIN }
+        - { path: ^/agencia, role: ROLE_USER_CUENTA }
+        - { path: ^/proyecto, role: ROLE_USER_GERENTE }
+        - { path: ^/, role: IS_AUTHENTICATED_FULLY }

@@ -1,0 +1,23 @@
+report_activacion:
+    resource: "@ReportBundle/Controller/ActivacionController.php"
+    type:     annotation
+
+report_instrumento:
+    resource: "@ReportBundle/Controller/InstrumentoController.php"
+    type:     annotation
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+    
+report:
+    resource: "@ReportBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+easy_admin_bundle:
+    resource: "@ReportBundle/Controller/AdminController.php"
+    type:     annotation
+    prefix:   /admin

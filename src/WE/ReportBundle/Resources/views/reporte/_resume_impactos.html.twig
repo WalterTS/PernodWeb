@@ -1,0 +1,39 @@
+{% if activacion_valores[0] is defined and activacion_valores[1] is defined %}
+    <div class="col-xs-12 col-sm-6">
+        <h3>Activaciones resumen</h3>
+        <table class="table table-bordered">
+            <tr>
+                <td></td>
+                <td>Alcance</td>
+                <td>Frecuencia</td>
+                <td>Impactos</td>
+                <td>Degustaciones</td>
+                <td>Ventas</td>
+            </tr>
+            <tr>
+                <td>Objetivo</td>
+                <td>Real</td>
+                <td>Dif</td>
+                <td>Dif</td>
+                <td>Ventas</td>
+                <td>Ventas</td>
+            </tr>
+            <tr>
+                <td>Real</td>
+                <td>Real</td>
+                <td>Dif</td>
+                <td>{{activacion_valores[0].total|round}}</td>
+                <td>{{activacion_valores[1].total|round}}</td>
+                <td>Ventas</td>
+            </tr>
+            <tr>
+                <td>Dif</td>
+                <td>Real</td>
+                <td>Dif</td>
+                <td>{{((activacion_valores[1].total/activacion_valores[0].total)*100)|round}}%</td>
+                <td>Ventas</td>
+                <td>Ventas</td>
+            </tr>
+        </table>
+    </div>
+{% endif %}

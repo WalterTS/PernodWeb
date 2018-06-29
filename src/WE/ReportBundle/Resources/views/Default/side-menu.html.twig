@@ -1,0 +1,57 @@
+<div class="col-md-3 left_col">
+    <div class="left_col scroll-view">
+        <div class="navbar nav_title" style="border: 0;">
+            <a href="{{path('homepage')}}" class="site_title">
+                {% image '@ReportBundle/Resources/public/images/logo-menu.png' %}
+                <img src="{{ asset_url }}" alt="PRM Pernod" class="img-responsive l-menu" />
+                {% endimage %}
+            </a>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="profile clearfix">
+        </div>
+
+        <br />
+
+        <!-- sidebar menu -->
+        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+            <div class="menu_section">
+                <h3>PRM Pernod</h3>
+                <ul class="nav side-menu">
+                    {% if is_granted('ROLE_USER_GERENTE') %}
+                        <li>
+                            <a href="{{ path('proyecto_new') }}"><i class="fa fa-edit"></i> Crear plan</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('proyecto_index') }}"><i class="fa fa-clock-o"></i> Tus Planes</a>
+                        </li>
+                    {% endif %}
+                    {% if is_granted('ROLE_USER_SUPERVISOR') or is_granted('ROLE_USER_CUENTA') %}
+                        <li>
+                            <a href="{{ path('activacion_index') }}"><i class="fa fa-archive"></i> Tus proyectos</a>
+                        </li>
+                    {% endif %}
+                    {% if is_granted('ROLE_USER_KAM') or is_granted('ROLE_USER_EJECUTIVO') %}
+                        <li>
+                            <a href="{{ path('activacion_new') }}"><i class="fa fa-edit"></i> Crear proyecto</a>
+                        </li>
+                    {% endif %}
+                    <li><a href="{{path('calendar')}}"><i class="fa fa-calendar"></i> Calendario </a></li>
+                        {% if not(is_granted('ROLE_USER_SUPERVISOR')) %}
+                        <li><a href="{{path('reporte_index')}}"><i class="fa fa-flag"></i> Reporte </a></li>
+                        {% endif %}
+                        {% if is_granted('ROLE_USER_GERENTE') %}
+                        <li><a href="{{path('administracion_index')}}"><i class="fa fa-clipboard" aria-hidden="true"></i> Administra</a></li>
+                        {% endif %}
+                        {% if is_granted('ROLE_USER_CUENTA') %}
+                        <li>
+                            <a href="{{ path('agencia_usuario_index') }}"><i class="fa fa-users"></i> Usuarios</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="x_title page-header bg-dark-ocean text-center">
+        <h4 class="ml-2">ADMINISTRACIÓN</h4>
+        <ul class="nav navbar-right panel_toolbox hidden-xs">
+        </ul>
+        <div class="clearfix"></div>
+    </div>
+    <div class='row'> 
+        <div class='col-md-6 col-md-offset-3'>
+            <div class='row text-center'>
+                <div class='col-md-3' >
+                    <div ><a href="{{ path('usuario_index')}}"> <i class="fa fa-users fa-4x btn" aria-hidden="true"></i> </a></div>
+                    <label>USUARIOS</label>
+                </div>
+                <div class='col-md-3'>
+                    <div ><a href="{{ path('cdc_index')}}"> <i class="fa fa-map-marker fa-4x btn" aria-hidden="true"></i> </a></div>
+                    <label>CENTROS DE CONSUMO</label>
+                </div>
+                <div class='col-md-3'>
+                    <div ><a href="{{ path('plaza_index')}}"><i class="fa fa-globe fa-4x btn" aria-hidden="true"></i> </a></div>
+                    <label>PLAZAS</label>
+                </div>
+                <div class='col-md-3'>
+                    <div><a href="{{path('agencia_index')}}"><i class="fa fa-universal-access fa-4x btn" aria-hidden="true"></i></a></div>
+                    <label>AGENCIAS</label>
+                </div>
+                <div class='clearfix'></div>    
+                <div class='col-md-3' >
+                    <div ><a href="{{ path('cdctipo_index')}}"> <i class="fa fa-folder-open fa-4x btn" aria-hidden="true"></i> </a></div>
+                    <label>TIPOS DE CENTRO DE CONSUMO</label>
+                </div>
+                <div class='col-md-3' >
+                    <div ><a href="{{ path('activaciontipo_index')}}"> <i class="fa fa-folder-open fa-4x btn" aria-hidden="true"></i> </a></div>
+                    <label>TIPO DE ACTIVACIÓN</label>
+                </div>
+            </div>
+        </div> 
+    </div>                    
+{% endblock %}
